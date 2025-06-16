@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard Final</title>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+
+    <h2>📊 Dashboard Final</h2>
+
+    <div class="mb-5">
+        <h4>📅 Receita Total Mensal (Últimos 12 meses)</h4>
+        <canvas id="graficoMensal"></canvas>
+    </div>
+
+    <div class="mb-5">
+        <h4>🏆 Top 5 Clientes por Receita</h4>
+        <table class="table table-striped">
+            <thead><tr><th>Cliente</th><th>Receita</th></tr></thead>
+            <tbody>
+                <tr th:each="c : ${top5Clientes}">
+                    <td th:text="${c[0]}"></td>
+                    <td th:text="${c[1]}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mb-5">
+        <h4>📚 Receita por Classe de Ativo</h4>
+        <canvas id="graficoClasse"></canvas>
+    </div>
+
+    <div class="mb-5">
+        <h4>🧑‍💼 Receita por Assessor</h4>
+        <canvas id="graficoAssessor"></canvas>
+    </div>
+
+    <a href="/" class="btn btn-secondary">← Voltar</a>
+
+    <script th:inline="javascript">
+        const receitaMensal = [[${receitaMensal}]];
+        const receitaPorClasse = [[${receitaPorClasse}]];
+        const receitaPorAssessor = [[${receitaPorAssessor}]];
+
+        const meses = Object.keys(receitaMensal);
+        const valoresMensais = Object.values(receitaMensal);
+
+        new Chart(document.getElementById('graficoMensal'), {
+            type: 'bar',
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: 'Receita (R$)',
+                    data: valoresMensais,
+                    backgroundColor: 'steelblue'
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('graficoClasse'), {
+            type: 'pie',
+            data: {
+                labels: Object.keys(receitaPorClasse),
+                datasets: [{
+                    data: Object.values(receitaPorClasse)
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('graficoAssessor'), {
+            type: 'bar',
+            data: {
+                labels: Object.keys(receitaPorAssessor),
+                datasets: [{
+                    data: Object.values(receitaPorAssessor),
+                    backgroundColor: 'green'
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

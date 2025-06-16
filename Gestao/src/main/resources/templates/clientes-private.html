@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>💼 Análise de Clientes Private</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+</head>
+<body class="container mt-5">
+
+    <h2 class="mb-4 text-center">💼 Análise de Clientes Private</h2>
+
+    <table class="table table-bordered table-hover table-striped text-center align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Indicador</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="fw-semibold">Total de Clientes Private</td>
+                <td class="fw-bold fs-5 text-primary" th:text="${quantidade}">0</td>
+            </tr>
+            <tr>
+                <td class="fw-semibold">Assessor com mais Clientes Private</td>
+                <td class="fw-bold fs-5 text-info" th:text="${topAssessor}">Assessor</td>
+            </tr>
+            <tr>
+                <td class="fw-semibold">Receita Média dos Clientes Private</td>
+                <td class="fw-bold fs-5 text-success" th:text="${receitaMediaFormatada}">R$ 0,00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/" class="btn btn-secondary mt-4">← Voltar para o Início</a>
+
+</body>
+</html>
